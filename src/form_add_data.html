@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <label for="nombre">NOMBRE</label>
+        <input v-model="nombre" type="text" />
+        <label for="edad">EDAD</label>
+        <input v-model="edad" type="number"/>
+
+        <button v-on:click="storeData" name="button">Enviar</button>
+
+        <div>
+            <ul>
+                <li v-for="data in formData" :key="data">
+                    <h4>{{ data.nombre }}</h4>
+                    <h5>{{ data.edad }}</h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+    const app = {
+
+        data() {
+            return {
+                nombre: "",
+                edad: "",
+                formData: []
+            }
+        },
+
+        methods: {
+            storeData: function () {
+                let obj = {
+                    nombre: this.nombre,
+                    edad: this.edad
+                }
+                this.formData.push(obj);
+            }
+        }
+    }
+
+    Vue.createApp(app).mount('#app');
+</script>
+
+</html>

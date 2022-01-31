@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetching data</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="pokemon in pokemons" :key="pokemon" style="text-transform: uppercase;">{{ pokemon.name }}</li>
+        </ul>
+        <button v-on:click="getData">Clica!</button>
+    </div>
+</body>
+<script>
+    const app = {
+        data() {
+            return {
+                pokemons: []
+            }
+        },
+        methods: {
+            getData: function () {
+                const fetchingData = async () => {
+                    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=365');
+                    return await response.json();
+                }
+                fetchingData().then(data => {
+                    this.pokemons = data.results;
+                });
+            }
+        }
+    }
+    Vue.createApp(app).mount('#app');
+</script>
+
+</html>
