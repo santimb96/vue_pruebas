@@ -23,7 +23,11 @@
             <ul>
                 <li v-for="data in formData" :key="data">
                     <h4>{{ data.nombre }}</h4>
+                    <h5 v-if="data.mostrar">{{ data.descripcion }}</h5>
                     <h5>{{ data.edad }}</h5>
+                    <button v-on:click="deleteElement( data.id )" >Borrar</button>
+                    <button v-on:click="showElement( data.id )" >Mostrar</button>
+                    <button v-on:click="editElement( data.id )" >Edit</button>
                 </li>
             </ul>
         </div>
@@ -34,19 +38,56 @@
 
         data() {
             return {
+                id: 0,
                 nombre: "",
                 edad: "",
-                formData: []
+                descripcion: "aaaaaaaaa",
+                formData: [],
+                mostrar: false
             }
         },
 
         methods: {
             storeData: function () {
+
+                this.id++;
+
                 let obj = {
+                    id: this.id,
                     nombre: this.nombre,
-                    edad: this.edad
+                    edad: this.edad,
+                    descripcion: this.descripcion,
+                    mostrar: this.mostrar
                 }
                 this.formData.push(obj);
+                
+            },
+
+            deleteElement: function (id) {
+                console.log(id);
+                this.formData.forEach(data => {
+                    if(data.id === id){
+                        this.formData.splice(this.formData.indexOf(data), 1);
+                    }
+                })
+            },
+
+            showElement: function (id) {
+                this.formData.forEach(data => {
+                    if(data.id === id){
+                        data.mostrar ? data.mostrar = false : data.mostrar = true;
+                    }
+                });
+                //this.mostrar ? this.mostrar = false : this.mostrar = true;
+            },
+
+            editElement: function (id) {
+                this.formData.forEach(data => {
+                    if(data.id === id){
+                        data.nombre = this.nombre;
+                        data.edad = this.edad;
+                    }
+                })
             }
         }
     }
