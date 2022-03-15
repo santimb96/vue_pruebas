@@ -55,7 +55,8 @@
 
             },
             printData: function(){
-                    this.pokeList.forEach(pokemon => {
+                    const filtrados = this.pokeList.filter(pokemon => ['grass', 'fire', 'water'].includes(pokemon.type));
+                    filtrados.forEach(pokemon => {
                     const {id, name, level, type, speed, img} = pokemon;
                     document.getElementById('list').innerHTML += `<h2>${id}</h2><li><h3>${name}</h3></li><li>${type}</li><li>${speed}</li>
                                                                 <li><img src="${img}" alt="${name}"></li>`;
