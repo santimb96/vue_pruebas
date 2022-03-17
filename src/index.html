@@ -44,6 +44,14 @@
             getPokemon: async function (url) {
                 const response = await fetch(url);
                 const data = await response.json();
+                console.log({
+                    id: data.id,
+                    name: data.name,
+                    level: 1,
+                    type: data.types[0].type.name,
+                    speed: data.stats[5].base_stat,
+                    img: `https://images.gameinfo.io/pokemon-trimmed/60/p${data.id}.webp`
+                })
                 return {
                     id: data.id,
                     name: data.name,
@@ -60,7 +68,7 @@
                     const {id, name, level, type, speed, img} = pokemon;
                     document.getElementById('list').innerHTML += `<h2>${id}</h2><li><h3>${name}</h3></li><li>${type}</li><li>${speed}</li>
                                                                 <li><img src="${img}" alt="${name}"></li>`;
-                })
+                });
 
             }
         }
